@@ -1,0 +1,30 @@
+{
+    "name": "onemorething/commonmark-sanitize-extension",
+    "type": "library",
+    "description": "Extension for the `league/commonmark` parser to sanitize html elements in paragraphs",
+    "keywords": ["markdown", "commonmark", "extension", "sanitize", "sanitization"],
+    "authors": [
+        {
+            "name": "Marijn van der Werf",
+            "email": "mail@marijnvdwerf.nl",
+            "homepage": "http://marijnvdwerf.nl"
+        }
+    ],
+    "require": {
+        "league/commonmark": "^0.12.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^5.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "OneMoreThing\\CommonMark\\Sanitize\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "OneMoreThing\\CommonMark\\Sanitize\\Functional\\": "tests/functional",
+            "OneMoreThing\\CommonMark\\Sanitize\\Unit\\": "tests/unit"
+        }
+    }
+}
