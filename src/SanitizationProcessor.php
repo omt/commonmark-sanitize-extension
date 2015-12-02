@@ -8,6 +8,7 @@
 namespace OneMoreThing\CommonMark\Sanitize;
 
 use League\CommonMark\Block\Element\Document;
+use League\CommonMark\Block\Element\HtmlBlock;
 use League\CommonMark\Inline\Element\Html;
 use League\CommonMark\Node\NodeWalker;
 use OneMoreThing\CommonMark\Sanitize\Nodes\ClosingTag;
@@ -32,11 +33,23 @@ class SanitizationProcessor
     {
         $walker = new NodeWalker($document);
         while ($step = $walker->next()) {
-            if (!($step->getNode() instanceof Html)) {
+            if (!($step->getNode() instanceof Html) && !($step->getNode() instanceof HtmlBlock)) {
                 continue;
             }
 
             $node = $step->getNode();
+
+            if ($node instanceof HtmlBlock) {
+                if ($node->next() !== null) {
+                    $walker->resumeAt($node->next());
+                } else {
+                    $walker->resumeAt($node->parent(), false);
+                }
+                
+                $node->detach();
+                continue;
+            }
+
             $replacement = $this->getHtmlParser()->parseHtml($node);
             $node->replaceWith($replacement);
         }

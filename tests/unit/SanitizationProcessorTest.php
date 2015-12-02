@@ -3,6 +3,7 @@
 namespace OneMoreThing\CommonMark\Sanitize\Tests\Unit;
 
 use League\CommonMark\Block\Element\Document;
+use League\CommonMark\Block\Element\HtmlBlock;
 use League\CommonMark\Block\Element\Paragraph;
 use League\CommonMark\Inline\Element\Html;
 use League\CommonMark\Inline\Element\Text;
@@ -67,6 +68,34 @@ class SanitizationProcessorTest extends \PHPUnit_Framework_TestCase
             Declaration::class,
             Text::class,
             CdataSection::class,
+            Paragraph::class,
+            Document::class
+        ];
+
+        foreach ($expected as $i => $type) {
+            $this->assertInstanceOf($type, $steps[$i]->getNode());
+        }
+    }
+
+    public function testRemovesHtmlBlocks()
+    {
+        $document = new Document();
+        $document->appendChild(new HtmlBlock(HtmlBlock::TYPE_6_BLOCK_ELEMENT));
+        $document->appendChild(new Paragraph());
+        $document->appendChild(new HtmlBlock(HtmlBlock::TYPE_1_CODE_CONTAINER));
+
+        $this->processor->processDocument($document);
+
+        $walker = new NodeWalker($document);
+        /** @var NodeWalkerEvent[] $steps */
+        $steps = [];
+        while ($step = $walker->next()) {
+            $steps[] = $step;
+        }
+
+        $expected = [
+            Document::class,
+            Paragraph::class,
             Paragraph::class,
             Document::class
         ];
