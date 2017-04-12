@@ -5,7 +5,7 @@ namespace OneMoreThing\CommonMark\Sanitize\Tests\Unit;
 use League\CommonMark\Block\Element\Document;
 use League\CommonMark\Block\Element\HtmlBlock;
 use League\CommonMark\Block\Element\Paragraph;
-use League\CommonMark\Inline\Element\Html;
+use League\CommonMark\Inline\Element\HtmlInline;
 use League\CommonMark\Inline\Element\Text;
 use League\CommonMark\Node\NodeWalker;
 use League\CommonMark\Node\NodeWalkerEvent;
@@ -30,17 +30,17 @@ class SanitizationProcessorTest extends \PHPUnit_Framework_TestCase
     public function testNodeConversion()
     {
         $paragraph = new Paragraph();
-        $paragraph->appendChild(new Html('<h2>'));
+        $paragraph->appendChild(new HtmlInline('<h2>'));
         $paragraph->appendChild(new Text('Overview'));
-        $paragraph->appendChild(new Html('</h2>'));
+        $paragraph->appendChild(new HtmlInline('</h2>'));
         $paragraph->appendChild(new Text(' '));
-        $paragraph->appendChild(new Html('<!-- foo--->'));
+        $paragraph->appendChild(new HtmlInline('<!-- foo--->'));
         $paragraph->appendChild(new Text(' '));
-        $paragraph->appendChild(new Html('<?php echo $a; ?>'));
+        $paragraph->appendChild(new HtmlInline('<?php echo $a; ?>'));
         $paragraph->appendChild(new Text(' '));
-        $paragraph->appendChild(new Html('<!ELEMENT br EMPTY>'));
+        $paragraph->appendChild(new HtmlInline('<!ELEMENT br EMPTY>'));
         $paragraph->appendChild(new Text(' '));
-        $paragraph->appendChild(new Html('<![CDATA[>&<]]>'));
+        $paragraph->appendChild(new HtmlInline('<![CDATA[>&<]]>'));
 
         $document = new Document();
         $document->appendChild($paragraph);

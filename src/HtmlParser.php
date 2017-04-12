@@ -2,8 +2,7 @@
 
 namespace OneMoreThing\CommonMark\Sanitize;
 
-use League\CommonMark\Inline\Element\AbstractInline;
-use League\CommonMark\Inline\Element\Html;
+use League\CommonMark\Inline\Element\HtmlInline;
 use League\CommonMark\Util\RegexHelper;
 use OneMoreThing\CommonMark\Sanitize\Nodes\CdataSection;
 use OneMoreThing\CommonMark\Sanitize\Nodes\ClosingTag;
@@ -15,10 +14,10 @@ use OneMoreThing\CommonMark\Sanitize\Nodes\ProcessingInstruction;
 class HtmlParser
 {
     /**
-     * @param Html $html
-     * @return Html
+     * @param HtmlInline $html
+     * @return HtmlInline
      */
-    public function parseHtml(Html $html)
+    public function parseHtml(HtmlInline $html)
     {
         $content = $html->getContent();
 

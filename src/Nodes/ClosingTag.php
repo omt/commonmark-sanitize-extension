@@ -2,9 +2,9 @@
 
 namespace OneMoreThing\CommonMark\Sanitize\Nodes;
 
-use League\CommonMark\Inline\Element\Html;
+use League\CommonMark\Inline\Element\HtmlInline;
 
-class ClosingTag extends Html
+class ClosingTag extends HtmlInline
 {
 
     private $tagName;

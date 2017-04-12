@@ -8,7 +8,7 @@
 namespace OneMoreThing\CommonMark\Sanitize;
 
 use League\CommonMark\Extension\Extension;
-use League\CommonMark\Inline\Renderer\RawHtmlRenderer;
+use League\CommonMark\Inline\Renderer\HtmlInlineRenderer;
 use OneMoreThing\CommonMark\Sanitize\Nodes\CdataSection;
 use OneMoreThing\CommonMark\Sanitize\Nodes\ClosingTag;
 use OneMoreThing\CommonMark\Sanitize\Nodes\Comment;
@@ -33,7 +33,7 @@ class SanitizationExtension extends Extension
 
     public function getInlineRenderers()
     {
-        $htmlRenderer = new RawHtmlRenderer();
+        $htmlRenderer = new HtmlInlineRenderer();
         return [
             CdataSection::class => $htmlRenderer,
             ClosingTag::class => $htmlRenderer,

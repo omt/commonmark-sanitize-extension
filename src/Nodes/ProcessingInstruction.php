@@ -2,8 +2,8 @@
 
 namespace OneMoreThing\CommonMark\Sanitize\Nodes;
 
-use League\CommonMark\Inline\Element\Html;
+use League\CommonMark\Inline\Element\HtmlInline;
 
-class ProcessingInstruction extends Html
+class ProcessingInstruction extends HtmlInline
 {
 }

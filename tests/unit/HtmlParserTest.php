@@ -2,7 +2,7 @@
 
 namespace OneMoreThing\CommonMark\Sanitize\Tests\Unit;
 
-use League\CommonMark\Inline\Element\Html;
+use League\CommonMark\Inline\Element\HtmlInline;
 use OneMoreThing\CommonMark\Sanitize\HtmlParser;
 use OneMoreThing\CommonMark\Sanitize\Nodes\CdataSection;
 use OneMoreThing\CommonMark\Sanitize\Nodes\ClosingTag;
@@ -23,7 +23,7 @@ class HtmlParserTest extends \PHPUnit_Framework_TestCase
 
     public function testParseOpenTag()
     {
-        $input = new Html('<h2>');
+        $input = new HtmlInline('<h2>');
         $actual = $this->parser->parseHtml($input);
 
         $this->assertInstanceOf(OpenTag::class, $actual);
@@ -33,7 +33,7 @@ class HtmlParserTest extends \PHPUnit_Framework_TestCase
 
     public function testParseClosingTag()
     {
-        $input = new Html('</h2>');
+        $input = new HtmlInline('</h2>');
         $actual = $this->parser->parseHtml($input);
 
         $this->assertInstanceOf(ClosingTag::class, $actual);
@@ -43,7 +43,7 @@ class HtmlParserTest extends \PHPUnit_Framework_TestCase
 
     public function testParseComment()
     {
-        $input = new Html('<!-- foo--->');
+        $input = new HtmlInline('<!-- foo--->');
         $actual = $this->parser->parseHtml($input);
 
         $this->assertInstanceOf(Comment::class, $actual);
@@ -52,7 +52,7 @@ class HtmlParserTest extends \PHPUnit_Framework_TestCase
 
     public function testParseProcessingInstruction()
     {
-        $input = new Html('<?php echo $a; ?>');
+        $input = new HtmlInline('<?php echo $a; ?>');
         $actual = $this->parser->parseHtml($input);
 
         $this->assertInstanceOf(ProcessingInstruction::class, $actual);
@@ -61,7 +61,7 @@ class HtmlParserTest extends \PHPUnit_Framework_TestCase
 
     public function testParseDeclaration()
     {
-        $input = new Html('<!ELEMENT br EMPTY>');
+        $input = new HtmlInline('<!ELEMENT br EMPTY>');
         $actual = $this->parser->parseHtml($input);
 
         $this->assertInstanceOf(Declaration::class, $actual);
@@ -70,7 +70,7 @@ class HtmlParserTest extends \PHPUnit_Framework_TestCase
 
     public function testParseCdataSection()
     {
-        $input = new Html('<![CDATA[>&<]]>');
+        $input = new HtmlInline('<![CDATA[>&<]]>');
         $actual = $this->parser->parseHtml($input);
 
         $this->assertInstanceOf(CdataSection::class, $actual);
